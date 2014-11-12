@@ -6532,7 +6532,9 @@ do_invoke_method (DebuggerTlsData *tls, Buffer *buf, InvokeData *invoke, guint8 
 		g_assert_not_reached ();
 	}
 
-	m = decode_methodid (p, &p, end, &domain, &err);
+	domain = tls->context.unwind_data [MONO_UNWIND_DATA_DOMAIN];
+
+	m = decode_methodid (p, &p, end, NULL, &err);
 	if (err)
 		return err;
 	sig = mono_method_signature (m);
